@@ -109,7 +109,7 @@ body::before{content:none}
 <div class="wm"></div>
 <main>
 <div class="hd"><img id="brandimg" class="brand" alt="Kangaroo Fresh Mart logo"><h1>AI Deck Maker — <span>content → PowerPoint</span></h1></div>
-<p class="sub">Paste text or upload Word, Excel, CSV and text files. It analyzes the <i>content</i> and writes a complete, designed presentation about what it means. Works fully offline, or add an AI key for smarter writing.</p>
+<p class="sub">Paste text or upload Word, Excel, CSV and text files. It analyzes the <i>content</i> and writes a complete, designed presentation about what it means. Free AI is built in (no key, no sign-up, unlimited generations). It also works fully offline.</p>
 <div class="grid">
  <div>
   <div class="card"><h2>1 · Tell me what you want</h2>
@@ -136,12 +136,12 @@ body::before{content:none}
    <label>Extra instructions (optional)</label><input id="extra" placeholder="e.g. focus on risks, keep it simple, write in Spanish…">
    <label>Style</label><div class="themes" id="themes"></div>
   </div>
-  <div class="card"><h2>4 · AI engine (optional)</h2>
+  <div class="card"><h2>4 · AI engine</h2>
    <div class="row"><div><label>Mode</label><select id="eng"><option value="auto">Auto (AI if available, else offline)</option><option value="local">Offline only (no AI, no key)</option></select></div>
-   <div><label>Provider</label><select id="prov"><option value="anthropic">Anthropic (Claude)</option><option value="openai">OpenAI-compatible</option></select></div></div>
-   <label>API key</label><input id="akey" type="password" placeholder="Paste your key (stays in this browser)" autocomplete="off">
-   <div class="row"><div><label>Model</label><input id="amodel"></div><div id="abaserow"><label>Base URL</label><input id="abase"></div></div>
-   <label class="chk"><input type="checkbox" id="arem"> Remember the key on this device</label>
+   <div style="display:none"><label>Provider</label><select id="prov"><option value="free">Free AI</option></select></div></div>
+   <input id="akey" type="password" style="display:none" value="">
+   <div class="row" style="display:none"><div><label>Model</label><input id="amodel"></div><div id="abaserow"><label>Base URL</label><input id="abase"></div></div>
+   <input type="checkbox" id="arem" style="display:none">
    <div id="engst" style="color:var(--mute);font-size:.85rem;margin-top:8px"></div></div>
  </div>
  <div>
@@ -256,7 +256,7 @@ function stopLoad(){clearInterval(lt);if(!DECK)$('outline').innerHTML='<div clas
 function burst(){for(let i=0;i<30;i++){const p=document.createElement('i');p.className='cf';p.style.cssText=`left:${48+(Math.random()-.5)*20}%;background:${['#5b5bf0','#14b8a6','#f59e0b','#f43f5e'][i%4]};--x:${(Math.random()-.5)*700}px;--y:${-120+Math.random()*520}px;animation-delay:${Math.random()*.15}s`;document.body.appendChild(p);setTimeout(()=>p.remove(),1900)}}
 document.addEventListener('keydown',e=>{if(!DECK||!$('stage'))return;if(e.key==='ArrowRight')gs(cur+1);if(e.key==='ArrowLeft')gs(cur-1)});
 function showDeck(){const N=DECK.slides.length+1;clearInterval(auto);auto=null;
- $('outline').innerHTML='<div class="stage" id="stage"></div><div class="ctl"><button id="pv" class="ib">‹</button><div id="dots"></div><button id="nx" class="ib">›</button><button id="play" class="ib">▶</button></div><details open style="margin-top:14px"><summary style="cursor:pointer;color:var(--mute)">✏️ Edit this slide</summary><input id="et" placeholder="Slide title" style="margin-top:10px"><textarea id="eb" placeholder="One bullet per line" style="height:110px;margin-top:8px"></textarea></details><div style="margin-top:10px"><label>Layout</label><select id="el"><option>bullets</option><option>stats</option><option>chart</option><option>compare</option><option>quote</option></select></div><input id="ek" placeholder="Key takeaway (optional)" style="margin-top:8px"><textarea id="en" placeholder="Speaker notes" style="height:70px;margin-top:8px"></textarea><div class="row" style="margin-top:12px"><button id="mu" type="button">↑ Move up</button><button id="md" type="button">↓ Move down</button><button id="du" type="button">⧉ Duplicate</button><button id="de" type="button">🗑 Delete</button><button id="ad" type="button">＋ Add slide</button></div><div class="row" style="margin-top:12px"><button id="xm" type="button">⬇ Outline (.md)</button><button id="xj" type="button">💾 Save deck (.json)</button><button id="xl" type="button">📂 Load deck</button></div><input id="lj" type="file" accept=".json" style="display:none"><div class="row" style="margin-top:12px"><button id="fs" type="button">⛶ Fullscreen</button><button id="cp" type="button">📋 Copy outline</button><button id="rg" type="button">↻ Regenerate</button></div><details style="margin-top:14px"><summary style="cursor:pointer;color:var(--mute)">Slide list</summary><div id="lst"></div></details>';
+ $('outline').innerHTML='<div class="stage" id="stage"></div><div class="ctl"><button id="pv" class="ib">‹</button><div id="dots"></div><button id="nx" class="ib">›</button><button id="play" class="ib">▶</button></div><details open style="margin-top:14px"><summary style="cursor:pointer;color:var(--mute)">✏️ Edit this slide</summary><input id="et" placeholder="Slide title" style="margin-top:10px"><textarea id="eb" placeholder="One bullet per line" style="height:110px;margin-top:8px"></textarea></details><div style="margin-top:10px"><label>Layout</label><select id="el"><option>bullets</option><option>stats</option><option>chart</option><option>compare</option><option>quote</option></select></div><input id="ek" placeholder="Key takeaway (optional)" style="margin-top:8px"><textarea id="en" placeholder="Speaker notes" style="height:70px;margin-top:8px"></textarea><div class="row" style="margin-top:12px"><button id="mu" type="button">↑ Move up</button><button id="md" type="button">↓ Move down</button><button id="du" type="button">⧉ Duplicate</button><button id="de" type="button">🗑 Delete</button><button id="ad" type="button">＋ Add slide</button></div><div class="row" style="margin-top:12px"><button id="xm" type="button">⬇ Outline (.md)</button><button id="xj" type="button">💾 Save deck (.json)</button><button id="xl" type="button">📂 Load deck</button></div><input id="lj" type="file" accept=".json" style="display:none"><div class="row" style="margin-top:12px"><button id="fs" type="button">⛶ Fullscreen</button><button id="xh" type="button">🌐 HTML slideshow</button><button id="xp" type="button">🖨 PDF / Print</button><button id="cp" type="button">📋 Copy outline</button><button id="rg" type="button">↻ Regenerate</button></div><details style="margin-top:14px"><summary style="cursor:pointer;color:var(--mute)">Slide list</summary><div id="lst"></div></details>';
  showList();$('pv').onclick=()=>gs(cur-1);$('nx').onclick=()=>gs(cur+1);$('dots').onclick=e=>{const k=e.target.dataset.k;if(k!=null)gs(+k)};
  $('play').onclick=()=>{if(auto){clearInterval(auto);auto=null;$('play').textContent='▶'}else{$('play').textContent='⏸';auto=setInterval(()=>gs((cur+1)%N),3600)}};gs(0)}
 function gs(i){const N=DECK.slides.length+1;cur=Math.max(0,Math.min(N-1,i));setTimeout(fillEd2,0);$('stage').innerHTML=`<div class="sv">${svHTML(cur)}</div>`;$('dots').innerHTML=Array.from({length:N},(_,k)=>`<i class="${k===cur?'on':''}" data-k="${k}"></i>`).join('')}
@@ -407,27 +407,30 @@ setInterval(saveDeck,4000);
 
 // ---------- engine settings ----------
 const AIK=['eng','prov','akey','amodel','abase'];
-const PDEF={anthropic:{m:'claude-sonnet-5-5',b:''},openai:{m:'gpt-4o-mini',b:'https://api.openai.com/v1'}};
+const PDEF={free:{m:'openai',b:'https://text.pollinations.ai/openai'},groq:{m:'llama-3.3-70b-versatile',b:'https://api.groq.com/openai/v1'},gemini:{m:'gemini-2.0-flash',b:'https://generativelanguage.googleapis.com/v1beta/openai'},openrouter:{m:'meta-llama/llama-3.3-70b-instruct:free',b:'https://openrouter.ai/api/v1'},anthropic:{m:'claude-sonnet-5-5',b:''},openai:{m:'gpt-4o-mini',b:'https://api.openai.com/v1'}};
 function engStatus(){const k=$('akey').value.trim();$('engst').textContent=$('eng').value==='local'?'Offline mode: the deck is built on this device from your content. No key, no internet needed.':window.claude?'Running inside Claude: AI is built in, no key needed.':k?'Will use your API key ('+($('prov').value==='anthropic'?'Anthropic':'OpenAI-compatible')+'). If it fails, an offline deck is built instead.':'No API key set, so Offline mode is used. Add a key above for full AI writing.';
- $('abaserow').style.display=$('prov').value==='openai'?'block':'none'}
+ {const p=$('prov').value,H={groq:'console.groq.com/keys',gemini:'aistudio.google.com/apikey',openrouter:'openrouter.ai/keys'};
+ if($('eng').value!=='local'&&!window.claude){if(p==='free')$('engst').textContent='🆓 Free AI is on: unlimited generations, no key or sign-up. If the service is busy, an offline deck is built instead.';else if(H[p]&&!k)$('engst').textContent='Get a free key at '+H[p]+', paste it above, and generate as much as you like.'}}
+ $('abaserow').style.display=['openai','groq','gemini','openrouter'].includes($('prov').value)?'block':'none';$('akey').parentNode.style.display=''}
 function saveSet(){try{const s={};AIK.forEach(k=>s[k]=$(k).value);if(!$('arem').checked)delete s.akey;localStorage.setItem('adm_set',JSON.stringify(s))}catch(e){}engStatus()}
 (function(){try{const s=JSON.parse(localStorage.getItem('adm_set')||'{}');AIK.forEach(k=>{if(s[k]!=null)$(k).value=s[k]});$('arem').checked=!!s.akey}catch(e){}
- if(!$('amodel').value)$('amodel').value=PDEF[$('prov').value].m;if(!$('abase').value)$('abase').value=PDEF.openai.b;engStatus();
+ $('prov').value='free';$('akey').value='';$('arem').checked=false;$('amodel').value='openai';$('abase').value=PDEF.free.b;engStatus();
  [...AIK,'arem'].forEach(k=>$(k).addEventListener('input',saveSet));
- $('prov').addEventListener('change',()=>{$('amodel').value=PDEF[$('prov').value].m;saveSet()})})();
+ $('prov').addEventListener('change',()=>{const d=PDEF[$('prov').value];$('amodel').value=d.m;if(d.b)$('abase').value=d.b;saveSet()})})();
 
 async function getSampler(){
  if(window.claude&&$('eng').value!=='local'){try{const s=await claude.use('sample');if(s)return s}catch(e){if(e&&e.code==='not_granted')throw e}}
- const key=$('akey').value.trim();if($('eng').value==='local'||!key)return null;
- const prov=$('prov').value,model=$('amodel').value.trim()||PDEF[prov].m;
- return async prompt=>{
+ const key='',prov='free';if($('eng').value==='local'||(!key&&prov!=='free'))return null;
+ const model=$('amodel').value.trim()||PDEF[prov].m;
+ const once=async prompt=>{
   let r;try{
    if(prov==='anthropic')r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'content-type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model,max_tokens:8000,messages:[{role:'user',content:prompt}]})});
-   else r=await fetch(($('abase').value.trim()||PDEF.openai.b).replace(/\/+$/,'')+'/chat/completions',{method:'POST',headers:{'content-type':'application/json',authorization:'Bearer '+key},body:JSON.stringify({model,messages:[{role:'user',content:prompt}]})})
+   else{const h={'content-type':'application/json'};if(key&&prov!=='free')h.authorization='Bearer '+key;const url=prov==='free'?PDEF.free.b:($('abase').value.trim()||PDEF[prov].b||PDEF.openai.b).replace(/\/+$/,'')+'/chat/completions';r=await fetch(url,{method:'POST',headers:h,body:JSON.stringify({model,messages:[{role:'user',content:prompt}]})})}
   }catch(e){throw new Error('could not reach the AI service (network blocked or offline)')}
   const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error((j.error&&(j.error.message||j.error))||('HTTP '+r.status));
   const text=prov==='anthropic'?(j.content||[]).map(x=>x.text||'').join(''):(((j.choices||[])[0]||{}).message||{}).content||'';
-  if(!text)throw new Error('empty reply');return{text}}}
+  if(!text)throw new Error('empty reply');return{text}};
+ return async p=>{let e;for(let i=0;i<3;i++){try{return await once(p)}catch(x){e=x;await new Promise(r=>setTimeout(r,1500*(i+1)))}}throw e}}
 
 // ---------- offline analysis helpers ----------
 const STOP=new Set('the a an and or but of to in on for with at by from as is are was were be been being it its this that these those we you they he she i our your their his her not no yes can could will would should may might have has had do does did so if then than too very also more most such into over under about up down out off just which who whom what when where why how all any each other some there here'.split(' '));
@@ -515,6 +518,15 @@ function offlineRefine(q){const S=DECK.slides,low=q.toLowerCase();let m;HIST.pus
  if(/shorten|shorter|concise|brief|simpler/.test(low)){const t=(low.match(/slide\s+(\d+)/)||[])[1],it=t?[S[idx(+t)]].filter(Boolean):S;it.forEach(s=>{if(s.bullets)s.bullets=s.bullets.slice(0,3).map(b=>clipW(b,10))});return ok('Bullets shortened')}
  if((m=q.match(/add\s+(?:a\s+|an\s+|one\s+)?(.+?)\s+slide/i))){S.push({layout:'bullets',title:cap1(m[1]),bullets:['Add your point here'],takeaway:'',notes:''});return ok('Slide added at the end')}
  HIST.pop();msg('Offline refine understands: "delete slide 3", "move slide 2 to 5", "shorten" (or "shorten slide 4"), "add a Risks slide". For free-form edits, add an AI key in section 4 or edit slides directly.','er')}
+
+
+// ---------- extra exports: standalone HTML slideshow + PDF ----------
+function slidesPage(print){const N=DECK.slides.length+1;let h='';for(let k=0;k<N;k++)h+=`<section class="stage">${svHTML(k)}</section>`;
+ const js="const s=[...document.querySelectorAll('.stage')];let i=0;function g(n){i=Math.max(0,Math.min(s.length-1,n));s.forEach((x,k)=>x.classList.toggle('on',k===i))}g(0);onkeydown=e=>{if(['ArrowRight',' ','PageDown'].includes(e.key))g(i+1);if(['ArrowLeft','PageUp'].includes(e.key))g(i-1)};onclick=e=>g(i+(e.clientX>innerWidth/2?1:-1))";
+ return `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(DECK.title||'Deck')}</title><style>body{margin:0;background:#111;height:100vh;display:grid;place-items:center;overflow:hidden}.stage{aspect-ratio:16/9;container-type:inline-size;position:relative;overflow:hidden;width:min(100vw,177.78vh);display:none}.stage.on{display:block}.a,.sv,.orb,.bar,.ln{animation:none!important}.bar{height:var(--h)}.ln{stroke-dasharray:none}@page{size:13.333in 7.5in;margin:0}@media print{body{display:block;height:auto;overflow:visible;background:none}.stage{display:block!important;width:100vw;break-after:page;-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style></head><body>${h}<script>${print?"onload=()=>{document.querySelectorAll('.stage').forEach(x=>x.classList.add('on'));document.body.style.overflow='visible';document.body.style.display='block';document.body.style.height='auto';setTimeout(()=>print(),600)}":js}<\/script></body></html>`}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#xh,#xp');if(!b||!DECK)return;
+ try{if(b.id==='xh'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([slidesPage(false)],{type:'text/html'}));a.download=(DECK.title||'deck').replace(/[^\w\- ]+/g,'').trim().slice(0,50)+'.html';a.click();msg('✅ Standalone slideshow saved. Open it in any browser; arrow keys or taps move between slides.','ok')}
+ else{const w=window.open('','_blank');if(!w)return msg('Pop-ups are blocked. Allow pop-ups for this page, then try again.','er');w.document.write(slidesPage(true));w.document.close();msg('Choose “Save as PDF” in the print dialog.','ok')}}catch(x){msg('Export failed: '+(x.message||x),'er')}});
 
 // ---------- restore last deck ----------
 (function(){try{const d=JSON.parse(localStorage.getItem('adm_deck')||'null');if(d&&Array.isArray(d.slides)&&d.slides.length&&!DECK){DECK=d;showDeck();$('dl').style.display='block';$('refine').style.display='block';msg('Restored your last deck. Generate again to replace it.','ok')}}catch(e){}})();
